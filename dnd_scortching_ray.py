@@ -49,6 +49,6 @@ def main():
         if(ray_answer == "1"): atk_phase()
         else: break
 
-# Runs the main function, once finised it will tell the program is over. 
+# Runs the main function, once finised it will inform the user that the program is over.
 main()
 print("Program has ended. \n")
