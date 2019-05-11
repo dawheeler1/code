@@ -1,21 +1,30 @@
 # Daniel Wheeler
 # Text-Based RPG
 
+
+# Main function
 def main():
     global user_cash
     global user_health
     print("\n*********************************************************************")
     print("Current Gold:", user_cash)
     print("Current HP: ", user_health)
+
     main_choice = int(input("\n1: Store\n2: Practice \n3: Monostary \n9: End\nChoice: "))
+    while True:
+        if main_choice not in (1,2,3,9):
+            main_choice = int(input("try again: "))
+        else: break
 
     if (main_choice == 1): the_store()
     elif (main_choice == 2): practice_fights()
     elif (main_choice == 3): monastery()
-    elif (main_choice == 9): user_health = (user_health - 999999)
-    else: print("Error: You did this >:[ ")
+    elif (main_choice == 9): user_health = (user_health - user_health)
+    else: print("How did you get here?")
 
 
+
+# Store function. 
 def the_store():
     print("\n Menu: \n 1: Bronze Sword = 5gp \n 2: Silver Sword = 10gp \n 3: Gold Sword = 15gp \n 4: Leave")
     store_choice = int(input(" Choice: "))
@@ -23,20 +32,27 @@ def the_store():
     global user_weapon
 
     if (store_choice == 1): 
-        user_cash = user_cash - 5
-        user_weapon = 30
+        if (user_cash > 4):
+            user_cash = user_cash - 5
+            user_weapon = 30
+        else: print("Not enough Gold.")
 
     elif (store_choice == 2):
-        user_cash = user_cash - 10
-        user_weapon = 50
+         if (user_cash > 9):
+             user_cash = user_cash - 10
+             user_weapon = 50
+         else: print("Not enough Gold.")
 
     elif (store_choice == 3):
-        user_cash = user_cash - 15
-        user_weapon = 100
-
+        if (user_cash > 14):
+            user_cash = user_cash - 15
+            user_weapon = 100
+        else: print("Not enough Gold.")
     else: print("You leave with nothing, what a waste of a trip!")
 
 
+
+# Practice Arena function.
 def practice_fights():
     print("\n Welcome to the Rat Pits!")
     practice_input = int(input(" 1: Easy Fight [Win 1-3 Gold] \n 2: Medium Fight [Win 3-5 Gold]\n Choice: "))
@@ -58,6 +74,31 @@ def practice_fights():
     else: print("You have left the pits!")
 
 
+
+# Hospital function.
+def monastery():
+    global user_cash
+    global user_health
+    print("\n Welcome to this holy ground.")
+    print(" 1: 5 gold to be healed for 10 health.\n 2: 35 gold to be fully healed.\n 3: Leave")
+    mono_choice = int(input(" Choice: "))
+
+    if (mono_choice == 1):
+        if (user_cash > 4):
+            user_cash = user_cash - 5
+            user_health = user_health + 10
+        else: print("not enough funds")
+    elif (mono_choice == 2):
+        if (user_cash > 34):
+            user_cash = user_cash - 35
+            user_health = 100
+        else: print("not enough funds")
+    else: print("You left the Monastery.")
+
+
+
+
+# [ Universal Fighting Platform ] 
 def fight(enemy_hp, npc_atk_max, npc_reward):
     while True:
         global user_health
@@ -80,31 +121,21 @@ def fight(enemy_hp, npc_atk_max, npc_reward):
             print("You died!")
             break
 
-def monastery():
-    global user_cash
-    global user_health
-    print("\n Welcome to this holy ground.")
-    print(" 1: 5 gold to be healed for 10 health.\n 2: 35 gold to be fully healed.\n 3: Leave")
-    mono_choice = int(input(" Choice: "))
 
-    if (mono_choice == 1): 
-        user_cash = user_cash - 5
-        user_health = user_health + 10
-    elif (mono_choice == 2):
-        user_cash = user_cash - 35
-        user_health = 100
 
-#***************************************************
+#**********************************************************************************
 # Base Stats
 user_cash = 0
 user_weapon = 10
 user_health = 100
 import random
 
+# Main loop that lets the program run inbetween functions. 
 while True:
     if (user_cash > -1 and user_health > 0):
         main()
     else: 
         print("\nBrankrupt or Dead - Goodbye!")
         break
-#****************************************************
+#*********************************************************************************
+
